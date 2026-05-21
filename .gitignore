@@ -1,0 +1,14 @@
+# Veri dosyaları
+veri/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Cloudflare
+cloudflared.exe
+
+# Geçici
+*.log
+.env
