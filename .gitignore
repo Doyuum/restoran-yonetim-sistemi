@@ -8,6 +8,7 @@ __pycache__/
 
 # Cloudflare
 cloudflared.exe
+cloudflared-windows-amd64.exe
 
 # Geçici
 *.log
