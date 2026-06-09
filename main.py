@@ -260,5 +260,29 @@ def main():
         print("\n  Sistem kapatildi.")
 
 
+def github_otoguncelle():
+    """Her 1 dakikada bir değişiklik varsa GitHub'a push atar."""
+    klasor = Path(__file__).parent
+    while True:
+        time.sleep(60)
+        try:
+            import subprocess
+            result = subprocess.run(
+                ["git", "status", "--porcelain"],
+                cwd=klasor, capture_output=True, text=True
+            )
+            if result.stdout.strip():
+                subprocess.run(["git", "add", "-A"], cwd=klasor, capture_output=True)
+                subprocess.run(
+                    ["git", "commit", "-m", f"Otomatik guncelleme"],
+                    cwd=klasor, capture_output=True
+                )
+                subprocess.run(["git", "push"], cwd=klasor, capture_output=True)
+        except Exception:
+            pass
+
+
 if __name__ == "__main__":
+    t = threading.Thread(target=github_otoguncelle, daemon=True)
+    t.start()
     main()
