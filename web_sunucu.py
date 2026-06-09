@@ -90,7 +90,20 @@ BASE = """
   <title>Anadolu Sofrası</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Segoe UI', sans-serif; background: #f5f5f5; color: #222; }
+    body { font-family: 'Segoe UI', sans-serif; color: #222;
+      background-color: #f0f2f5;
+      background-image: repeating-linear-gradient(
+        45deg,
+        rgba(0,0,0,0.07) 0px, rgba(0,0,0,0.07) 2px,
+        transparent 2px, transparent 50%
+      ),
+      repeating-linear-gradient(
+        -45deg,
+        rgba(0,0,0,0.07) 0px, rgba(0,0,0,0.07) 2px,
+        transparent 2px, transparent 50%
+      );
+      background-size: 28px 28px;
+    }
     .header { background: #0D1B2A; color: white; padding: 16px 20px;
               display: flex; align-items: center; gap: 12px; position: sticky; top: 0; z-index: 10; }
     .header h1 { font-size: 1.2rem; }
@@ -597,12 +610,18 @@ MENU_HTML = BASE.replace("{% block icerik %}{% endblock %}", """
 
   /* Ürün kartları */
   .urun-kart {
-    background: white; border-radius: 14px; padding: 16px 18px;
+    background: white; border-radius: 14px; padding: 0;
     margin-bottom: 10px; border: 1.5px solid #edf0f5;
     box-shadow: 0 1px 6px rgba(0,0,0,.05);
     transition: box-shadow .15s, border-color .15s;
+    overflow: hidden;
   }
   .urun-kart:hover { box-shadow: 0 4px 16px rgba(0,0,0,.1); border-color: #bee3f8; }
+  .urun-foto {
+    width: 120px; height: 120px; object-fit: cover; border-radius: 10px;
+    flex-shrink: 0; margin-left: 12px;
+  }
+  .urun-kart-body { padding: 14px 16px; display: flex; align-items: center; }
   .kat-blok { }
   .mn-kat-baslik {
     font-size: .7rem; font-weight: 800; letter-spacing: 1.8px;
@@ -725,34 +744,39 @@ MENU_HTML = BASE.replace("{% block icerik %}{% endblock %}", """
   {% for urun in urunler %}
   <div class="urun-kart kat-blok" data-kat="{{ urun.kategori_id }}">
     {% if urun.kategori != son_kat.val %}
-      <div class="mn-kat-baslik">{{ urun.kategori }}</div>
+      <div class="mn-kat-baslik" style="padding:14px 16px 8px;">{{ urun.kategori }}</div>
       {% set son_kat.val = urun.kategori %}
     {% endif %}
-    <div class="urun-item">
-      <div style="flex:1;min-width:0;">
-        <div class="urun-ad">{{ urun.ad }}</div>
-        {% if urun.aciklama %}
-          <div class="urun-aciklama">{{ urun.aciklama }}</div>
-        {% endif %}
-        <div class="urun-fiyat-wrap">
-          {% if urun.indirim > 0 %}
-            <span class="urun-kampanya">{{ "%.2f"|format(urun.fiyat_taban_kdv) }} ₺</span>
-            <span class="urun-fiyat">{{ "%.2f"|format(urun.fiyat_kdv) }} ₺</span>
-            <span class="urun-indirim-badge">-%{{ urun.indirim|int }}</span>
+    <div class="urun-kart-body">
+      <div class="urun-item" style="flex:1;min-width:0;">
+        <div style="flex:1;min-width:0;">
+          <div class="urun-ad">{{ urun.ad }}</div>
+          {% if urun.aciklama %}
+            <div class="urun-aciklama">{{ urun.aciklama }}</div>
+          {% endif %}
+          <div class="urun-fiyat-wrap">
+            {% if urun.indirim > 0 %}
+              <span class="urun-kampanya">{{ "%.2f"|format(urun.fiyat_taban_kdv) }} ₺</span>
+              <span class="urun-fiyat">{{ "%.2f"|format(urun.fiyat_kdv) }} ₺</span>
+              <span class="urun-indirim-badge">-%{{ urun.indirim|int }}</span>
+            {% else %}
+              <span class="urun-fiyat">{{ "%.2f"|format(urun.fiyat_kdv) }} ₺</span>
+            {% endif %}
+          </div>
+        </div>
+        <img class="urun-foto" src="/static/menu/{{ urun.id }}.jpg"
+             onerror="this.src='/static/menu/{{ urun.id }}.webp'; this.onerror=function(){this.src='/static/menu/{{ urun.id }}.gif'; this.onerror=function(){this.style.display='none';};};"
+             alt="{{ urun.ad }}">
+        <div style="flex-shrink:0; margin-left:14px;">
+          {% if urun.tukendi %}
+            <span class="urun-tukendi">{{ urun.tukendi_mesaj }}</span>
           {% else %}
-            <span class="urun-fiyat">{{ "%.2f"|format(urun.fiyat_kdv) }} ₺</span>
+            <form method="post" action="/kalem-ekle/{{ siparis.id if siparis else 0 }}/{{ urun.id }}">
+              <input type="hidden" name="masa_no" value="{{ masa_no }}">
+              <button class="ekle-btn" type="submit">+</button>
+            </form>
           {% endif %}
         </div>
-      </div>
-      <div style="flex-shrink:0; margin-left:14px;">
-        {% if urun.tukendi %}
-          <span class="urun-tukendi">{{ urun.tukendi_mesaj }}</span>
-        {% else %}
-          <form method="post" action="/kalem-ekle/{{ siparis.id if siparis else 0 }}/{{ urun.id }}">
-            <input type="hidden" name="masa_no" value="{{ masa_no }}">
-            <button class="ekle-btn" type="submit">+</button>
-          </form>
-        {% endif %}
       </div>
     </div>
   </div>
@@ -2053,7 +2077,14 @@ GIRIS_HTML = """<!DOCTYPE html>
   <style>
     *{box-sizing:border-box;margin:0;padding:0}
     body{font-family:'Segoe UI',sans-serif;min-height:100vh;display:flex;align-items:center;
-         justify-content:center;background:linear-gradient(135deg,#0f0c29,#302b63,#24243e)}
+         justify-content:center;
+         background-color:#0f0c29;
+         background-image:
+           repeating-linear-gradient(45deg,rgba(255,255,255,0.07) 0px,rgba(255,255,255,0.07) 2px,transparent 2px,transparent 50%),
+           repeating-linear-gradient(-45deg,rgba(255,255,255,0.07) 0px,rgba(255,255,255,0.07) 2px,transparent 2px,transparent 50%),
+           linear-gradient(135deg,#0f0c29,#302b63,#24243e);
+         background-size:28px 28px,28px 28px,cover;
+    }
     .wrap{width:100%;max-width:460px;padding:20px}
     .kart{background:white;border-radius:20px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.5)}
     .kart-ust{background:linear-gradient(135deg,#1a1a2e,#16213e);padding:32px 32px 24px;text-align:center}
@@ -2212,7 +2243,8 @@ GIRIS_HTML = """<!DOCTYPE html>
   </div>
 </div>
 <script>
-var aktifTab = 'musteri', aktifPanel = 'm-giris';
+var aktifTab = '{{ aktif_tip }}', aktifPanel = aktifTab === 'personel' ? 'p-giris' : 'm-giris';
+document.addEventListener('DOMContentLoaded', function(){ secTab(aktifTab); });
 function secTab(t) {
   aktifTab = t;
   document.querySelectorAll('.tab').forEach(b => b.classList.remove('aktif'));
@@ -2235,13 +2267,15 @@ function rolSec(el, rol) {
 
 @app.route("/giris", methods=["GET","POST"])
 def giris_ekran():
-    sonraki = request.args.get("sonraki", "")
-    mesaj   = request.args.get("mesaj", "")
+    sonraki    = request.args.get("sonraki", "")
+    mesaj      = request.args.get("mesaj", "")
+    aktif_tip  = request.args.get("aktif_tip", "musteri")
     if "kullanici" in session:
         return _rota_rol()
 
     if request.method == "POST":
         tip   = request.form.get("tip","musteri")
+        aktif_tip = tip
         mod   = request.form.get("mod","giris")
         kadi  = request.form.get("kullanici_adi","").strip()
         sifre = request.form.get("sifre","")
@@ -2288,7 +2322,7 @@ def giris_ekran():
                 session["rol"]       = rol
                 return _rota_rol()
 
-    return render_template_string(GIRIS_HTML, mesaj=mesaj, sonraki=sonraki)
+    return render_template_string(GIRIS_HTML, mesaj=mesaj, sonraki=sonraki, aktif_tip=aktif_tip)
 
 def _rota_rol():
     """Giriş sonrası role göre yönlendir."""
@@ -2354,7 +2388,12 @@ PERS_BASE = """
   <title>{{ sayfa_baslik }} — Panel</title>
   <style>
     *{box-sizing:border-box;margin:0;padding:0}
-    body{font-family:'Segoe UI',sans-serif;background:#f4f6fb;color:#2c3e50;display:flex;min-height:100vh}
+    body{font-family:'Segoe UI',sans-serif;color:#2c3e50;display:flex;min-height:100vh;
+      background-color:#f0f2f5;
+      background-image:repeating-linear-gradient(45deg,rgba(0,0,0,0.07) 0px,rgba(0,0,0,0.07) 2px,transparent 2px,transparent 50%),
+      repeating-linear-gradient(-45deg,rgba(0,0,0,0.07) 0px,rgba(0,0,0,0.07) 2px,transparent 2px,transparent 50%);
+      background-size:28px 28px;
+    }
 
     /* ── SIDEBAR ── */
     .pside{
@@ -2366,6 +2405,18 @@ PERS_BASE = """
       box-shadow:4px 0 20px rgba(0,0,0,.18);
     }
     .pside.kapali{width:0;min-width:0}
+
+    /* ── MOBİL SIDEBAR OVERLAY ── */
+    @media (max-width: 768px) {
+      .pside { width: 0; min-width: 0; }
+      .pside.mobil-acik { width: 230px; min-width: 230px; }
+      .pmain { margin-left: 0 !important; }
+    }
+    .p-mobil-overlay{
+      display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);
+      z-index:199;
+    }
+    .p-mobil-overlay.goster{display:block}
     .pside-inner{width:230px;min-width:230px;display:flex;flex-direction:column;
                  height:100%;overflow-y:auto}
 
@@ -2542,6 +2593,9 @@ PERS_BASE = """
 </head>
 <body>
 
+<!-- MOBİL OVERLAY -->
+<div class="p-mobil-overlay" id="p-mobil-ov" onclick="psidebarToggle()"></div>
+
 <!-- SIDEBAR -->
 <nav class="pside" id="pside">
   <div class="pside-inner">
@@ -2654,11 +2708,23 @@ document.addEventListener('DOMContentLoaded', function(){
 
   var ps = document.getElementById('pside');
   var pm = document.getElementById('pmain');
-  if (localStorage.getItem('psb') === '0') { ps.classList.add('kapali'); pm.classList.add('genislet'); }
+  var pov = document.getElementById('p-mobil-ov');
+
+  function _pMobil() { return window.matchMedia('(max-width: 768px)').matches; }
+
+  if (!_pMobil() && localStorage.getItem('psb') === '0') {
+    ps.classList.add('kapali'); pm.classList.add('genislet');
+  }
+
   function psidebarToggle() {
-    ps.classList.toggle('kapali');
-    pm.classList.toggle('genislet');
-    localStorage.setItem('psb', ps.classList.contains('kapali') ? '0' : '1');
+    if (_pMobil()) {
+      var acik = ps.classList.toggle('mobil-acik');
+      pov.classList.toggle('goster', acik);
+    } else {
+      ps.classList.toggle('kapali');
+      pm.classList.toggle('genislet');
+      localStorage.setItem('psb', ps.classList.contains('kapali') ? '0' : '1');
+    }
   }
 </script>
 <style>
@@ -3372,22 +3438,18 @@ def pers_yonetim():
     <!-- İstatistik Kartları -->
     <div class="sc-wrap">
       <div class="sc sc-1">
-        <div class="sc-icon">🛒</div>
         <div class="sc-val">{aktif}</div>
         <div class="sc-lbl">Aktif Sipariş</div>
       </div>
       <div class="sc sc-2">
-        <div class="sc-icon">✅</div>
         <div class="sc-val">{ozet['siparis_sayisi']}</div>
         <div class="sc-lbl">Bugün Ödenen</div>
       </div>
       <div class="sc sc-3">
-        <div class="sc-icon">💰</div>
         <div class="sc-val">{ozet['toplam_ciro']:.0f} ₺</div>
         <div class="sc-lbl">Günlük Ciro</div>
       </div>
       <div class="sc sc-4">
-        <div class="sc-icon">🍽</div>
         <div class="sc-val">{toplam_menu}</div>
         <div class="sc-lbl">Menüde Ürün</div>
       </div>
