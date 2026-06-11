@@ -1,0 +1,20 @@
+{
+  "okul": {
+    "masa_no": 2,
+    "siparislerim": [
+      7
+    ]
+  },
+  "müşteri2": {
+    "masa_no": 1,
+    "siparislerim": [
+      8
+    ]
+  },
+  "MiracBabapiro": {
+    "masa_no": 1,
+    "siparislerim": [
+      12
+    ]
+  }
+}

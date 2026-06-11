@@ -1,0 +1,426 @@
+{
+  "1": {
+    "id": 1,
+    "masa_no": 1,
+    "kalemler": [
+      {
+        "menu_ogesi_id": 5,
+        "menu_ogesi_ad": "Izgara Köfte",
+        "fiyat": 180.0,
+        "miktar": 1,
+        "not_": ""
+      }
+    ],
+    "durum": "İptal",
+    "olusturma_zamani": "2026-06-09T13:32:41.326168",
+    "notlar": ""
+  },
+  "2": {
+    "id": 2,
+    "masa_no": 1,
+    "kalemler": [
+      {
+        "menu_ogesi_id": 5,
+        "menu_ogesi_ad": "Izgara Köfte",
+        "fiyat": 180.0,
+        "miktar": 1,
+        "not_": ""
+      }
+    ],
+    "durum": "İptal",
+    "olusturma_zamani": "2026-05-21T10:35:37.045164",
+    "notlar": ""
+  },
+  "3": {
+    "id": 3,
+    "masa_no": 2,
+    "kalemler": [
+      {
+        "menu_ogesi_id": 5,
+        "menu_ogesi_ad": "Izgara Köfte",
+        "fiyat": 180.0,
+        "miktar": 1,
+        "not_": ""
+      },
+      {
+        "menu_ogesi_id": 6,
+        "menu_ogesi_ad": "Tavuk Şiş",
+        "fiyat": 160.0,
+        "miktar": 1,
+        "not_": ""
+      },
+      {
+        "menu_ogesi_id": 11,
+        "menu_ogesi_ad": "Ayran",
+        "fiyat": 25.0,
+        "miktar": 1,
+        "not_": ""
+      }
+    ],
+    "durum": "Ödendi",
+    "olusturma_zamani": "2026-05-21T10:39:33.472299",
+    "notlar": ""
+  },
+  "4": {
+    "id": 4,
+    "masa_no": 2,
+    "kalemler": [
+      {
+        "menu_ogesi_id": 2,
+        "menu_ogesi_ad": "Domates Çorbası",
+        "fiyat": 45.0,
+        "miktar": 1,
+        "not_": ""
+      }
+    ],
+    "durum": "Ödendi",
+    "olusturma_zamani": "2026-05-21T10:40:46.904067",
+    "notlar": ""
+  },
+  "5": {
+    "id": 5,
+    "masa_no": 1,
+    "kalemler": [
+      {
+        "menu_ogesi_id": 12,
+        "menu_ogesi_ad": "Türk Çayı",
+        "fiyat": 15.0,
+        "miktar": 1,
+        "not_": "çay gelmesin garson gelsin sadece"
+      }
+    ],
+    "durum": "Ödendi",
+    "olusturma_zamani": "2026-05-21T10:46:04.530071",
+    "notlar": ""
+  },
+  "6": {
+    "id": 6,
+    "masa_no": 9,
+    "kalemler": [
+      {
+        "menu_ogesi_id": 10,
+        "menu_ogesi_ad": "Sütlaç",
+        "fiyat": 75.0,
+        "miktar": 1,
+        "not_": "Hızlı gelsin birader"
+      }
+    ],
+    "durum": "Ödendi",
+    "olusturma_zamani": "2026-05-21T11:16:25.942005",
+    "notlar": ""
+  },
+  "7": {
+    "id": 7,
+    "masa_no": 2,
+    "kalemler": [
+      {
+        "menu_ogesi_id": 5,
+        "menu_ogesi_ad": "Izgara Köfte",
+        "fiyat": 180.0,
+        "miktar": 1,
+        "not_": ""
+      },
+      {
+        "menu_ogesi_id": 6,
+        "menu_ogesi_ad": "Tavuk Şiş",
+        "fiyat": 160.0,
+        "miktar": 1,
+        "not_": "eğer yemeği tuzluyarrak getirirseniz siz tuzluyarrak yersiniz"
+      }
+    ],
+    "durum": "İptal",
+    "olusturma_zamani": "2026-05-21T11:23:05.558724",
+    "notlar": ""
+  },
+  "8": {
+    "id": 8,
+    "masa_no": 1,
+    "kalemler": [
+      {
+        "menu_ogesi_id": 5,
+        "menu_ogesi_ad": "Izgara Köfte",
+        "fiyat": 180.0,
+        "miktar": 1,
+        "not_": ""
+      }
+    ],
+    "durum": "İptal",
+    "olusturma_zamani": "2026-05-21T11:49:51.877870",
+    "notlar": ""
+  },
+  "9": {
+    "id": 9,
+    "masa_no": 2,
+    "kalemler": [
+      {
+        "menu_ogesi_id": 7,
+        "menu_ogesi_ad": "Karışık Pizza",
+        "fiyat": 200.0,
+        "miktar": 1,
+        "not_": ""
+      },
+      {
+        "menu_ogesi_id": 3,
+        "menu_ogesi_ad": "Mevsim Salatası",
+        "fiyat": 60.0,
+        "miktar": 1,
+        "not_": ""
+      }
+    ],
+    "durum": "İptal",
+    "olusturma_zamani": "2026-05-21T13:56:31.266707",
+    "notlar": ""
+  },
+  "10": {
+    "id": 10,
+    "masa_no": 6,
+    "kalemler": [
+      {
+        "menu_ogesi_id": 5,
+        "menu_ogesi_ad": "Izgara Köfte",
+        "fiyat": 180.0,
+        "miktar": 1,
+        "not_": ""
+      }
+    ],
+    "durum": "İptal",
+    "olusturma_zamani": "2026-05-21T13:58:52.550482",
+    "notlar": ""
+  },
+  "11": {
+    "id": 11,
+    "masa_no": 8,
+    "kalemler": [
+      {
+        "menu_ogesi_id": 5,
+        "menu_ogesi_ad": "Izgara Köfte",
+        "fiyat": 180.0,
+        "miktar": 1,
+        "not_": "Tuzlu  gelsin  "
+      },
+      {
+        "menu_ogesi_id": 3,
+        "menu_ogesi_ad": "Mevsim Salatası",
+        "fiyat": 60.0,
+        "miktar": 1,
+        "not_": "Bol yeşillikli gelsin "
+      }
+    ],
+    "durum": "İptal",
+    "olusturma_zamani": "2026-05-21T13:59:55.247133",
+    "notlar": ""
+  },
+  "12": {
+    "id": 12,
+    "masa_no": 1,
+    "kalemler": [
+      {
+        "menu_ogesi_id": 5,
+        "menu_ogesi_ad": "Izgara Köfte",
+        "fiyat": 180.0,
+        "miktar": 1,
+        "not_": ""
+      },
+      {
+        "menu_ogesi_id": 11,
+        "menu_ogesi_ad": "Ayran",
+        "fiyat": 25.0,
+        "miktar": 1,
+        "not_": ""
+      },
+      {
+        "menu_ogesi_id": 2,
+        "menu_ogesi_ad": "Domates Çorbası",
+        "fiyat": 45.0,
+        "miktar": 20,
+        "not_": ""
+      },
+      {
+        "menu_ogesi_id": 12,
+        "menu_ogesi_ad": "Türk Çayı",
+        "fiyat": 15.0,
+        "miktar": 20,
+        "not_": ""
+      }
+    ],
+    "durum": "Ödendi",
+    "olusturma_zamani": "2026-05-21T19:49:52.454858",
+    "notlar": ""
+  },
+  "13": {
+    "id": 13,
+    "masa_no": 1,
+    "kalemler": [
+      {
+        "menu_ogesi_id": 10,
+        "menu_ogesi_ad": "Sütlaç",
+        "fiyat": 75.0,
+        "miktar": 1,
+        "not_": ""
+      }
+    ],
+    "durum": "İptal",
+    "olusturma_zamani": "2026-05-20T22:49:41.813045",
+    "notlar": ""
+  },
+  "14": {
+    "id": 14,
+    "masa_no": 1,
+    "kalemler": [
+      {
+        "menu_ogesi_id": 5,
+        "menu_ogesi_ad": "Izgara Köfte",
+        "fiyat": 180.0,
+        "miktar": 1,
+        "not_": ""
+      }
+    ],
+    "durum": "İptal",
+    "olusturma_zamani": "2026-05-20T22:49:59.655187",
+    "notlar": ""
+  },
+  "15": {
+    "id": 15,
+    "masa_no": 1,
+    "kalemler": [
+      {
+        "menu_ogesi_id": 5,
+        "menu_ogesi_ad": "Izgara Köfte",
+        "fiyat": 180.0,
+        "miktar": 1,
+        "not_": ""
+      }
+    ],
+    "durum": "İptal",
+    "olusturma_zamani": "2026-05-20T22:52:00.590651",
+    "notlar": ""
+  },
+  "16": {
+    "id": 16,
+    "masa_no": 1,
+    "kalemler": [
+      {
+        "menu_ogesi_id": 12,
+        "menu_ogesi_ad": "Türk Çayı",
+        "fiyat": 15.0,
+        "miktar": 20,
+        "not_": ""
+      }
+    ],
+    "durum": "İptal",
+    "olusturma_zamani": "2026-05-20T22:57:44.563411",
+    "notlar": ""
+  },
+  "17": {
+    "id": 17,
+    "masa_no": 1,
+    "kalemler": [
+      {
+        "menu_ogesi_id": 5,
+        "menu_ogesi_ad": "Izgara Köfte",
+        "fiyat": 180.0,
+        "miktar": 2,
+        "not_": ""
+      }
+    ],
+    "durum": "İptal",
+    "olusturma_zamani": "2026-05-20T23:07:27.746635",
+    "notlar": ""
+  },
+  "18": {
+    "id": 18,
+    "masa_no": 1,
+    "kalemler": [
+      {
+        "menu_ogesi_id": 5,
+        "menu_ogesi_ad": "Izgara Köfte",
+        "fiyat": 180.0,
+        "miktar": 1,
+        "not_": ""
+      }
+    ],
+    "durum": "Ödendi",
+    "olusturma_zamani": "2026-05-20T23:09:47.068600",
+    "notlar": ""
+  },
+  "19": {
+    "id": 19,
+    "masa_no": 1,
+    "kalemler": [
+      {
+        "menu_ogesi_id": 5,
+        "menu_ogesi_ad": "Izgara Köfte",
+        "fiyat": 180.0,
+        "miktar": 1,
+        "not_": ""
+      }
+    ],
+    "durum": "İptal",
+    "olusturma_zamani": "2026-05-20T23:09:56.052505",
+    "notlar": ""
+  },
+  "20": {
+    "id": 20,
+    "masa_no": 1,
+    "kalemler": [
+      {
+        "menu_ogesi_id": 5,
+        "menu_ogesi_ad": "Izgara Köfte",
+        "fiyat": 180.0,
+        "miktar": 1,
+        "not_": ""
+      }
+    ],
+    "durum": "İptal",
+    "olusturma_zamani": "2026-05-20T23:12:21.523245",
+    "notlar": ""
+  },
+  "21": {
+    "id": 21,
+    "masa_no": 1,
+    "kalemler": [
+      {
+        "menu_ogesi_id": 5,
+        "menu_ogesi_ad": "Izgara Köfte",
+        "fiyat": 180.0,
+        "miktar": 1,
+        "not_": ""
+      }
+    ],
+    "durum": "Ödendi",
+    "olusturma_zamani": "2026-05-20T23:19:51.218106",
+    "notlar": ""
+  },
+  "22": {
+    "id": 22,
+    "masa_no": 2,
+    "kalemler": [
+      {
+        "menu_ogesi_id": 5,
+        "menu_ogesi_ad": "Izgara Köfte",
+        "fiyat": 180.0,
+        "miktar": 1,
+        "not_": ""
+      }
+    ],
+    "durum": "Ödendi",
+    "olusturma_zamani": "2026-05-20T23:20:33.859566",
+    "notlar": ""
+  },
+  "23": {
+    "id": 23,
+    "masa_no": 2,
+    "kalemler": [
+      {
+        "menu_ogesi_id": 6,
+        "menu_ogesi_ad": "Tavuk Şiş",
+        "fiyat": 160.0,
+        "miktar": 1,
+        "not_": ""
+      }
+    ],
+    "durum": "Ödendi",
+    "olusturma_zamani": "2026-05-14T20:39:56.171280",
+    "notlar": ""
+  }
+}

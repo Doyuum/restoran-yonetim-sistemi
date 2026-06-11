@@ -1,0 +1,3 @@
+[18.04.2026 12:44:45] Android | Menü görüntülendi ✔
+[18.04.2026 12:47:54] iPhone | Menü görüntülendi ✔
+[18.04.2026 12:57:15] iPhone | Geçersiz QR denendi

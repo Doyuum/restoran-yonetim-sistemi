@@ -1,0 +1,158 @@
+{
+  "1": {
+    "id": 1,
+    "ad": "Kırmızı Mercimek",
+    "miktar": 2500,
+    "birim": "g"
+  },
+  "2": {
+    "id": 2,
+    "ad": "Domates",
+    "miktar": 4000,
+    "birim": "g"
+  },
+  "3": {
+    "id": 3,
+    "ad": "Tereyağı",
+    "miktar": 1500,
+    "birim": "g"
+  },
+  "4": {
+    "id": 4,
+    "ad": "Un",
+    "miktar": 800,
+    "birim": "g"
+  },
+  "5": {
+    "id": 5,
+    "ad": "Salça",
+    "miktar": 650,
+    "birim": "g"
+  },
+  "6": {
+    "id": 6,
+    "ad": "Pul Biber",
+    "miktar": 500.0,
+    "birim": "g"
+  },
+  "7": {
+    "id": 7,
+    "ad": "Krema",
+    "miktar": 800,
+    "birim": "g"
+  },
+  "8": {
+    "id": 8,
+    "ad": "Dana Kıyma",
+    "miktar": 3600,
+    "birim": "g"
+  },
+  "9": {
+    "id": 9,
+    "ad": "Soğan",
+    "miktar": 1000,
+    "birim": "g"
+  },
+  "10": {
+    "id": 10,
+    "ad": "Tavuk Göğsü",
+    "miktar": 250.0,
+    "birim": "g"
+  },
+  "11": {
+    "id": 11,
+    "ad": "Sarımsak",
+    "miktar": 200,
+    "birim": "g"
+  },
+  "12": {
+    "id": 12,
+    "ad": "Pizza Hamuru",
+    "miktar": 3600,
+    "birim": "g"
+  },
+  "13": {
+    "id": 13,
+    "ad": "Sucuk",
+    "miktar": 960,
+    "birim": "g"
+  },
+  "14": {
+    "id": 14,
+    "ad": "Mantar",
+    "miktar": 720,
+    "birim": "g"
+  },
+  "15": {
+    "id": 15,
+    "ad": "Biber",
+    "miktar": 960,
+    "birim": "g"
+  },
+  "16": {
+    "id": 16,
+    "ad": "Mısır",
+    "miktar": 360,
+    "birim": "g"
+  },
+  "17": {
+    "id": 17,
+    "ad": "Domates Sosu",
+    "miktar": 960,
+    "birim": "g"
+  },
+  "18": {
+    "id": 18,
+    "ad": "Mozzarella",
+    "miktar": 1440,
+    "birim": "g"
+  },
+  "19": {
+    "id": 19,
+    "ad": "Marul",
+    "miktar": 2000,
+    "birim": "g"
+  },
+  "20": {
+    "id": 20,
+    "ad": "Salatalık",
+    "miktar": 1600,
+    "birim": "g"
+  },
+  "21": {
+    "id": 21,
+    "ad": "Kadayıf",
+    "miktar": 2250,
+    "birim": "g"
+  },
+  "22": {
+    "id": 22,
+    "ad": "Peynir",
+    "miktar": 1500,
+    "birim": "g"
+  },
+  "23": {
+    "id": 23,
+    "ad": "Antep Fıstığı",
+    "miktar": 450,
+    "birim": "g"
+  },
+  "24": {
+    "id": 24,
+    "ad": "Süt",
+    "miktar": 5000,
+    "birim": "g"
+  },
+  "25": {
+    "id": 25,
+    "ad": "Pirinç",
+    "miktar": 800,
+    "birim": "g"
+  },
+  "26": {
+    "id": 26,
+    "ad": "Şeker",
+    "miktar": 600,
+    "birim": "g"
+  }
+}

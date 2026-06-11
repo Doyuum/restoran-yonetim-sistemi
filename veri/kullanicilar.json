@@ -1,0 +1,34 @@
+{
+  "testuser": {
+    "sifre_hash": "scrypt:32768:8:1$NHHPgngZpi2SWqnU$5a866e7cc1ec00135bdcc35da7d9d3fd00c845729f812a918fffae007a4ad35444b3b81b95b39f38ef84774915fadd07cc3e2a33fa5d6a31841534d5a534d7e1",
+    "rol": "musteri"
+  },
+  "admin": {
+    "sifre_hash": "scrypt:32768:8:1$GcM5FaKtRkAKGFLn$8a48337ffd461e23bf2cc4435b11c0a3002d320269f49452accc29fa3d1956fc52ddbfac6ad8d22845c26624c43f2792f8d0835dca89b2d5f38e43654907c1ee",
+    "rol": "admin"
+  },
+  "testpersonel": {
+    "sifre_hash": "scrypt:32768:8:1$xP0OYnFfwCLYYMEN$3d841a021922e4fcfb9f1c5efddb16760ad45c4f628ed50bb09306af5b0c85995e4aa77eb5678cd166d1ee17ae42ba2adbbdbc7ebaa6bcf9e5c480b89d01419e",
+    "rol": "mutfak"
+  },
+  "müşteri1": {
+    "sifre_hash": "scrypt:32768:8:1$PPB2rBw23zvREXn2$931ba566666bbd8b7a5b761278b7bd162fc12157728439f4f5bdd7256e9780d2eda8e22cabf79e7e324c2db3d5f5213c98c0504bb05b125df368e1d68f9b3bfc",
+    "rol": "musteri"
+  },
+  "müşteri2": {
+    "sifre_hash": "scrypt:32768:8:1$TCAGLNwGKwYm6olG$5c991f1231d8fba1a70393d9dbc4140271558327050804f6aa6a02f3bc0797de36d478af561fec3a2c9343706e1c8d8c94c35755d14659e722840f62457ab64d",
+    "rol": "musteri"
+  },
+  "admin2": {
+    "sifre_hash": "scrypt:32768:8:1$7eyhjet98ODzpON6$320315f986b29e799349233aa5c4125ed59887befdfeb1843fd97520be2d0443cea1dec67ed12fb188644e9bc27f3712972bdc41ad4fe9d5ec05fcd2cca0558d",
+    "rol": "kasa"
+  },
+  "okul": {
+    "sifre_hash": "scrypt:32768:8:1$RG2KtV1Bm7rElhPb$8adeefab34c23f9d58179b3ca105ef6d8e00f4e0712bbf352d95c4c4f526b7aa7b197462539b015f5f42ea8a17cdae33f519107046af1325015a5c03ebbdb177",
+    "rol": "musteri"
+  },
+  "MiracBabapiro": {
+    "sifre_hash": "scrypt:32768:8:1$ND20XeHAhuT3Iza5$da1636134ff9e9446c0848c40c6eaefd8df4d6d5cfc7223a4650e31b3c6afce8393f9e79ffbff434fafd317bf941098d38c0fa1523582306435f53fb5aeb170d",
+    "rol": "musteri"
+  }
+}

@@ -1,0 +1,86 @@
+[
+  {
+    "id": 1,
+    "musteri": "müşteri1",
+    "telefon": "ruhi bir iki 3",
+    "tarih": "2026-05-21",
+    "saat": "19:00",
+    "kisi": 10,
+    "masa_no": 9,
+    "not_": "doğum günü kutlamalası ",
+    "durum": "İptal",
+    "olusturma": "2026-05-21T10:57:30.060661"
+  },
+  {
+    "id": 2,
+    "musteri": "müşteri1",
+    "telefon": "ruhi bir iki 3",
+    "tarih": "2026-05-21",
+    "saat": "11:00",
+    "kisi": 2,
+    "masa_no": 1,
+    "not_": "masa gelmesin",
+    "durum": "İptal",
+    "olusturma": "2026-05-21T10:59:02.269365"
+  },
+  {
+    "id": 3,
+    "musteri": "müşteri1",
+    "telefon": "",
+    "tarih": "2026-05-21",
+    "saat": "11:05",
+    "kisi": 2,
+    "masa_no": 1,
+    "not_": "",
+    "durum": "İptal",
+    "olusturma": "2026-05-21T11:04:52.705457"
+  },
+  {
+    "id": 4,
+    "musteri": "müşteri1",
+    "telefon": "",
+    "tarih": "2026-05-21",
+    "saat": "11:06",
+    "kisi": 2,
+    "masa_no": 2,
+    "not_": "",
+    "durum": "İptal",
+    "olusturma": "2026-05-21T11:05:49.922887"
+  },
+  {
+    "id": 5,
+    "musteri": "müşteri1",
+    "telefon": "212",
+    "tarih": "2026-05-21",
+    "saat": "11:00",
+    "kisi": 2,
+    "masa_no": 1,
+    "not_": "",
+    "durum": "İptal",
+    "olusturma": "2026-05-21T11:09:44.978954"
+  },
+  {
+    "id": 6,
+    "musteri": "müşteri1",
+    "telefon": "",
+    "tarih": "2026-05-21",
+    "saat": "19:00",
+    "kisi": 2,
+    "masa_no": 1,
+    "not_": "",
+    "durum": "İptal",
+    "olusturma": "2026-05-21T11:12:21.863036"
+  },
+  {
+    "id": 7,
+    "musteri": "müşteri1",
+    "telefon": "",
+    "tarih": "2026-05-21",
+    "saat": "14:00",
+    "kisi": 10,
+    "masa_no": 9,
+    "not_": "",
+    "durum": "İptal",
+    "olusturma": "2026-05-21T13:58:28.294472"
+  }
+]

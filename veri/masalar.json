@@ -1,0 +1,56 @@
+{
+  "1": {
+    "no": 1,
+    "kapasite": 2,
+    "durum": "Boş",
+    "aktif_siparis_id": null
+  },
+  "2": {
+    "no": 2,
+    "kapasite": 2,
+    "durum": "Boş",
+    "aktif_siparis_id": null
+  },
+  "3": {
+    "no": 3,
+    "kapasite": 4,
+    "durum": "Boş",
+    "aktif_siparis_id": null
+  },
+  "4": {
+    "no": 4,
+    "kapasite": 4,
+    "durum": "Boş",
+    "aktif_siparis_id": null
+  },
+  "5": {
+    "no": 5,
+    "kapasite": 4,
+    "durum": "Boş",
+    "aktif_siparis_id": null
+  },
+  "6": {
+    "no": 6,
+    "kapasite": 6,
+    "durum": "Boş",
+    "aktif_siparis_id": null
+  },
+  "7": {
+    "no": 7,
+    "kapasite": 6,
+    "durum": "Boş",
+    "aktif_siparis_id": null
+  },
+  "8": {
+    "no": 8,
+    "kapasite": 8,
+    "durum": "Boş",
+    "aktif_siparis_id": null
+  },
+  "9": {
+    "no": 9,
+    "kapasite": 10,
+    "durum": "Boş",
+    "aktif_siparis_id": null
+  }
+}

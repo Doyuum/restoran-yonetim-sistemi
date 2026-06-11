@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Restoranımız</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', sans-serif; background: #faf7f2; color: #333; }
+  header {
+    background: linear-gradient(135deg, #c0392b, #e74c3c);
+    color: white; text-align: center; padding: 2rem 1rem;
+  }
+  header h1 { font-size: 2rem; letter-spacing: 2px; }
+  header p  { opacity: .8; margin-top: .4rem; }
+  .container { max-width: 700px; margin: auto; padding: 1rem; }
+  .kategori { margin-top: 2rem; }
+  .kategori h2 {
+    font-size: 1.2rem; color: #c0392b;
+    border-bottom: 2px solid #c0392b; padding-bottom: .4rem; margin-bottom: 1rem;
+  }
+  .kart {
+    background: white; border-radius: 12px; padding: 1rem 1.2rem;
+    margin-bottom: .8rem; box-shadow: 0 2px 8px rgba(0,0,0,.06);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .kart .sol h3 { font-size: 1rem; }
+  .kart .sol p  { font-size: .82rem; color: #777; margin-top: .2rem; }
+  .fiyat {
+    font-size: 1.1rem; font-weight: 700; color: #c0392b; white-space: nowrap;
+  }
+  .id {
+    background: #c0392b; color: white; font-size: .75rem;
+    padding: .1rem .4rem; border-radius: 4px; margin-right: .4rem;
+    font-weight: 700; vertical-align: middle;
+  }
+  .stok {
+    font-size: .78rem; color: #e67e22; font-weight: 600; margin-top: .2rem;
+  }
+  .tuken {
+    color: #c0392b;
+  }
+  footer { text-align: center; padding: 2rem; color: #aaa; font-size: .8rem; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Restoranımız</h1>
+  <p>Dijital Menü</p>
+</header>
+<div class="container">
+<div class="kategori">
+  <h2>🥣 Başlangıç</h2>
+  <div class="kart">
+  <div class="sol">
+    <h3><span class="id">#2</span> Domates Çorbası</h3>
+    <p>Taze domates ile hazırlanır</p>
+    
+  </div>
+  <div class="fiyat">45.00 ₺</div>
+</div>
+<div class="kart">
+  <div class="sol">
+    <h3><span class="id">#1</span> Mercimek Çorbası</h3>
+    <p>Geleneksel kırmızı mercimek çorbası</p>
+    
+  </div>
+  <div class="fiyat">45.00 ₺</div>
+</div>
+
+</div>
+<div class="kategori">
+  <h2>🍽️ Ana Yemek</h2>
+  <div class="kart">
+  <div class="sol">
+    <h3><span class="id">#5</span> Izgara Köfte</h3>
+    <p>El yapımı dana köfte, pilav ve salata ile</p>
+    
+  </div>
+  <div class="fiyat">180.00 ₺</div>
+</div>
+<div class="kart">
+  <div class="sol">
+    <h3><span class="id">#6</span> Tavuk Şiş</h3>
+    <p>Marine edilmiş tavuk, lavaş ile</p>
+    
+  </div>
+  <div class="fiyat">160.00 ₺</div>
+</div>
+
+</div>
+<div class="kategori">
+  <h2>🍮 Tatlı</h2>
+  <div class="kart">
+  <div class="sol">
+    <h3><span class="id">#9</span> Künefe</h3>
+    <p>Antep fıstıklı, kaymak ile</p>
+    
+  </div>
+  <div class="fiyat">110.00 ₺</div>
+</div>
+<div class="kart">
+  <div class="sol">
+    <h3><span class="id">#10</span> Sütlaç</h3>
+    <p>Fırın sütlaç</p>
+    
+  </div>
+  <div class="fiyat">75.00 ₺</div>
+</div>
+
+</div>
+<div class="kategori">
+  <h2>🥤 İçecek</h2>
+  <div class="kart">
+  <div class="sol">
+    <h3><span class="id">#11</span> Ayran</h3>
+    <p>Ev yapımı ayran</p>
+    
+  </div>
+  <div class="fiyat">25.00 ₺</div>
+</div>
+<div class="kart">
+  <div class="sol">
+    <h3><span class="id">#13</span> Kola</h3>
+    <p>330ml</p>
+    
+  </div>
+  <div class="fiyat">35.00 ₺</div>
+</div>
+<div class="kart">
+  <div class="sol">
+    <h3><span class="id">#14</span> Su</h3>
+    <p>500ml</p>
+    
+  </div>
+  <div class="fiyat">10.00 ₺</div>
+</div>
+<div class="kart">
+  <div class="sol">
+    <h3><span class="id">#12</span> Türk Çayı</h3>
+    <p>Demlik çay</p>
+    
+  </div>
+  <div class="fiyat">15.00 ₺</div>
+</div>
+
+</div>
+<div class="kategori">
+  <h2>🥗 Salata</h2>
+  <div class="kart">
+  <div class="sol">
+    <h3><span class="id">#3</span> Mevsim Salatası</h3>
+    <p>Taze mevsim sebzeleri</p>
+    
+  </div>
+  <div class="fiyat">60.00 ₺</div>
+</div>
+<div class="kart">
+  <div class="sol">
+    <h3><span class="id">#4</span> Çoban Salatası</h3>
+    <p>Domates, salatalık, biber</p>
+    
+  </div>
+  <div class="fiyat">65.00 ₺</div>
+</div>
+
+</div>
+<div class="kategori">
+  <h2>🍕 Pizza</h2>
+  <div class="kart">
+  <div class="sol">
+    <h3><span class="id">#7</span> Karışık Pizza</h3>
+    <p>Sucuk, mantar, biber, mısır</p>
+    
+  </div>
+  <div class="fiyat">200.00 ₺</div>
+</div>
+<div class="kart">
+  <div class="sol">
+    <h3><span class="id">#8</span> Margarita Pizza</h3>
+    <p>Domates sosu, mozzarella</p>
+    
+  </div>
+  <div class="fiyat">170.00 ₺</div>
+</div>
+
+</div>
+
+</div>
+<footer>Fiyatlara %10 KDV dahildir.</footer>
+</body>
+</html>
