@@ -1,4 +1,7 @@
 
+# Raporlar
+raporlar/
+
 # Python
 __pycache__/
 *.pyc
