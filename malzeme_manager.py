@@ -1,3 +1,7 @@
+# malzeme_manager.py — Mutfak malzeme stok takibi
+# Sipariş verildiğinde hangi malzemeden ne kadar kullanılacağını bilir
+# ve stoktan otomatik düşer. İptal olursa malzemeleri iade eder.
+
 from typing import Dict, List, Optional, Tuple
 
 import storage
@@ -6,7 +10,8 @@ from models import Malzeme
 
 class MalzemeYoneticisi:
 
-    # Tüm yemekler için tarifler: menü ögesi adı → {malzeme adı: gram/porsiyon}
+    # Tarifler: hangi yemek hangi malzemeden kaç gram kullanır
+    # Bu sözlük sayesinde sipariş gelince otomatik stok düşürülür
     TARIFLER: Dict[str, Dict[str, float]] = {
         # Başlangıçlar
         "Mercimek Çorbası": {
@@ -68,7 +73,7 @@ class MalzemeYoneticisi:
         },
     }
 
-    # Malzeme kategorileri
+    # Malzemeleri kategorilere ayırdık — yönetim ekranında gruplanmış göstermek için
     KATEGORILER = {
         "Et & Tavuk":       ["Dana Kıyma", "Tavuk Göğsü", "Sucuk"],
         "Sebzeler":         ["Domates", "Soğan", "Sarımsak", "Biber", "Salatalık", "Marul", "Mantar", "Mısır"],
@@ -78,13 +83,11 @@ class MalzemeYoneticisi:
         "Kuruyemiş":        ["Antep Fıstığı"],
     }
 
-    # Başlangıç stokları (gram)
+    # İlk kurulumda stok yoksa bu değerlerle başlatılır (gram cinsinden)
     VARSAYILAN_MALZEMELER = [
-        # Et & Tavuk
         ("Dana Kıyma",       3600, "g"),
         ("Tavuk Göğsü",      4500, "g"),
         ("Sucuk",             960, "g"),
-        # Sebzeler
         ("Domates",          4000, "g"),
         ("Soğan",            1000, "g"),
         ("Sarımsak",          200, "g"),
@@ -93,37 +96,37 @@ class MalzemeYoneticisi:
         ("Marul",            2000, "g"),
         ("Mantar",            720, "g"),
         ("Mısır",             360, "g"),
-        # Süt Ürünleri
         ("Tereyağı",         1500, "g"),
         ("Krema",             800, "g"),
         ("Peynir",           1500, "g"),
         ("Mozzarella",       1440, "g"),
         ("Süt",              5000, "g"),
-        # Bakliyat & Tahıl
         ("Kırmızı Mercimek", 2500, "g"),
         ("Un",                800, "g"),
         ("Pizza Hamuru",     3600, "g"),
         ("Pirinç",            800, "g"),
         ("Kadayıf",          2250, "g"),
-        # Baharat & Sos
         ("Salça",             650, "g"),
         ("Pul Biber",         120, "g"),
         ("Domates Sosu",      960, "g"),
         ("Şeker",             600, "g"),
-        # Kuruyemiş
         ("Antep Fıstığı",     450, "g"),
     ]
 
     def __init__(self):
+        # Başlangıçta malzemeleri dosyadan yükle
         self.malzemeler: Dict[int, Malzeme] = storage.malzeme_yukle()
         self._sonraki_id = max(self.malzemeler.keys(), default=0) + 1
+        # Dosya boşsa varsayılan malzemeleri ekle
         if not self.malzemeler:
             self._varsayilan_yukle()
 
     def _kaydet(self):
+        """Bellekteki malzemeleri JSON dosyasına yazar."""
         storage.malzeme_kaydet(self.malzemeler)
 
     def _varsayilan_yukle(self):
+        """İlk çalıştırmada stok sıfırsa varsayılan malzemeleri ekler."""
         for ad, miktar, birim in self.VARSAYILAN_MALZEMELER:
             self._ekle(ad, miktar, birim)
 
@@ -135,13 +138,16 @@ class MalzemeYoneticisi:
         return m
 
     def stok_guncelle(self, malzeme_id: int, miktar: float) -> bool:
+        """Mevcut stoka miktar ekler (negatif değer verilirse düşer)."""
         if malzeme_id not in self.malzemeler:
             return False
+        # max(0) ile stok hiçbir zaman eksi olmaz
         self.malzemeler[malzeme_id].miktar = max(0.0, self.malzemeler[malzeme_id].miktar + miktar)
         self._kaydet()
         return True
 
     def stok_set(self, malzeme_id: int, yeni_miktar: float) -> bool:
+        """Stoku doğrudan belirli bir değere ayarlar."""
         if malzeme_id not in self.malzemeler:
             return False
         self.malzemeler[malzeme_id].miktar = max(0.0, yeni_miktar)
@@ -149,22 +155,31 @@ class MalzemeYoneticisi:
         return True
 
     def malzeme_bul_ad(self, ad: str) -> Optional[Malzeme]:
+        """İsme göre malzeme nesnesini bulur. Bulamazsa None döner."""
         for m in self.malzemeler.values():
             if m.ad == ad:
                 return m
         return None
 
     def tarif_uygula(self, menu_oge_ad: str, porsiyon: int = 1) -> Tuple[bool, str]:
-        """Siparişte çorba varsa malzemeleri düş. Stok yetersizse False döner."""
+        """
+        Sipariş onaylanınca çağrılır.
+        1. Önce tüm malzemelerin yeterliliğini kontrol eder (yetersizse False döner)
+        2. Kontrol geçilirse malzemeleri stoktan düşer
+        Tarifi olmayan ürünler için hiçbir şey yapmaz (True döner).
+        """
         if menu_oge_ad not in self.TARIFLER:
-            return True, ""
+            return True, ""  # Tarif yoksa sorun yok, geç
+
         tarif = self.TARIFLER[menu_oge_ad]
-        # Önce kontrol et
+
+        # Önce kontrol et — eksik malzeme varsa düşme yapma
         for malzeme_ad, gram in tarif.items():
             m = self.malzeme_bul_ad(malzeme_ad)
             if m and m.miktar < gram * porsiyon:
                 return False, f"Malzeme yetersiz: {malzeme_ad} (gereken: {gram * porsiyon}g, mevcut: {m.miktar:.0f}g)"
-        # Düş
+
+        # Kontrol geçildi, malzemeleri düş
         for malzeme_ad, gram in tarif.items():
             m = self.malzeme_bul_ad(malzeme_ad)
             if m:
@@ -173,7 +188,10 @@ class MalzemeYoneticisi:
         return True, ""
 
     def tarif_iade(self, menu_oge_ad: str, porsiyon: int = 1):
-        """Sipariş iptalinde malzemeleri iade et."""
+        """
+        Sipariş iptal edilince çağrılır.
+        Düşülen malzemeleri stoka geri ekler.
+        """
         if menu_oge_ad not in self.TARIFLER:
             return
         tarif = self.TARIFLER[menu_oge_ad]
@@ -184,7 +202,10 @@ class MalzemeYoneticisi:
         self._kaydet()
 
     def yapilabilir_mi(self, menu_oge_ad: str, porsiyon: int = 1) -> bool:
-        """Tarifteki malzemeler yeterliyse True döner. Tarif yoksa True."""
+        """
+        Menüde göstermeden önce kontrol: bu yemeği yapacak malzeme var mı?
+        Tarifi olmayan ürünler için True döner (sınırsız sayılır).
+        """
         if menu_oge_ad not in self.TARIFLER:
             return True
         for malzeme_ad, gram in self.TARIFLER[menu_oge_ad].items():
@@ -194,4 +215,5 @@ class MalzemeYoneticisi:
         return True
 
     def listele(self) -> List[Malzeme]:
+        """Tüm malzemeleri alfabetik sırayla döndürür."""
         return sorted(self.malzemeler.values(), key=lambda m: m.ad)

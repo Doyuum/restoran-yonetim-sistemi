@@ -1,3 +1,8 @@
+# storage.py — JSON okuma / yazma işlemleri
+# Neden JSON? Veritabanı kurmaya gerek yok, dosya olarak taşınabilir,
+# küçük bir restoran için fazlasıyla yeterli performans sağlar.
+# Bu dosya sadece veri okuma/yazma işleri yapar — başka hiçbir iş yapmaz.
+
 import json
 import os
 from datetime import datetime
@@ -5,40 +10,48 @@ from typing import Dict, List, Optional
 
 from models import Kategori, Malzeme, Masa, MasaDurumu, MenuOgesi, Siparis, SiparisDurumu, SiparisKalemi
 
-VERI_DIZINI = os.path.join(os.path.dirname(__file__), "veri")
-MENU_DOSYASI = os.path.join(VERI_DIZINI, "menu.json")
-SIPARIS_DOSYASI = os.path.join(VERI_DIZINI, "siparisler.json")
-MASA_DOSYASI = os.path.join(VERI_DIZINI, "masalar.json")
-MALZEME_DOSYASI = os.path.join(VERI_DIZINI, "malzemeler.json")
-BAKHSIS_DOSYASI  = os.path.join(VERI_DIZINI, "bakhsisler.json")
-MUSTERI_MASA_DOSYASI  = os.path.join(VERI_DIZINI, "musteri_masalar.json")
-REZERVASYON_DOSYASI   = os.path.join(VERI_DIZINI, "rezervasyonlar.json")
+# Tüm veri dosyalarının bulunduğu klasör yolu
+VERI_DIZINI       = os.path.join(os.path.dirname(__file__), "veri")
+MENU_DOSYASI      = os.path.join(VERI_DIZINI, "menu.json")
+SIPARIS_DOSYASI   = os.path.join(VERI_DIZINI, "siparisler.json")
+MASA_DOSYASI      = os.path.join(VERI_DIZINI, "masalar.json")
+MALZEME_DOSYASI   = os.path.join(VERI_DIZINI, "malzemeler.json")
+BAKHSIS_DOSYASI   = os.path.join(VERI_DIZINI, "bakhsisler.json")
+MUSTERI_MASA_DOSYASI = os.path.join(VERI_DIZINI, "musteri_masalar.json")
+REZERVASYON_DOSYASI  = os.path.join(VERI_DIZINI, "rezervasyonlar.json")
 
 
 def _dizin_olustur():
+    # veri/ klasörü yoksa otomatik oluştur (exist_ok=True → zaten varsa hata vermez)
     os.makedirs(VERI_DIZINI, exist_ok=True)
 
 
-# ---------- MENU ----------
+# ─── MENÜ ──────────────────────────────────────────────────────────────────
 
 def menu_yukle() -> Dict[int, MenuOgesi]:
+    """menu.json dosyasını okur, her satırı MenuOgesi nesnesine çevirir."""
     _dizin_olustur()
     if not os.path.exists(MENU_DOSYASI):
-        return {}
+        return {}  # Dosya yoksa boş sözlük döndür, hata verme
     with open(MENU_DOSYASI, "r", encoding="utf-8") as f:
         veriler = json.load(f)
+    # JSON'da key string olur ("1", "2"...), int'e çeviriyoruz
     return {int(k): MenuOgesi.from_dict(v) for k, v in veriler.items()}
 
 
 def menu_kaydet(menu: Dict[int, MenuOgesi]):
+    """Bellekteki menü sözlüğünü JSON dosyasına yazar."""
     _dizin_olustur()
     with open(MENU_DOSYASI, "w", encoding="utf-8") as f:
+        # ensure_ascii=False → Türkçe karakterler bozulmadan kaydedilir
+        # indent=2 → dosya okunabilir formatta olur
         json.dump({str(k): v.to_dict() for k, v in menu.items()}, f, ensure_ascii=False, indent=2)
 
 
-# ---------- MASALAR ----------
+# ─── MASALAR ───────────────────────────────────────────────────────────────
 
 def masalar_yukle() -> Dict[int, Masa]:
+    """masalar.json dosyasını okur."""
     _dizin_olustur()
     if not os.path.exists(MASA_DOSYASI):
         return {}
@@ -53,9 +66,13 @@ def masalar_kaydet(masalar: Dict[int, Masa]):
         json.dump({str(k): v.to_dict() for k, v in masalar.items()}, f, ensure_ascii=False, indent=2)
 
 
-# ---------- SİPARİŞLER ----------
+# ─── SİPARİŞLER ────────────────────────────────────────────────────────────
 
 def siparisler_yukle(menu: Dict[int, MenuOgesi]) -> Dict[int, Siparis]:
+    """
+    siparisler.json dosyasını okur.
+    Menü nesnesini parametre alır çünkü sipariş kalemlerinde ürün bilgisi lazım.
+    """
     _dizin_olustur()
     if not os.path.exists(SIPARIS_DOSYASI):
         return {}
@@ -68,13 +85,15 @@ def siparisler_yukle(menu: Dict[int, MenuOgesi]) -> Dict[int, Siparis]:
         for kalim in v.get("kalemler", []):
             ogesi_id = kalim["menu_ogesi_id"]
             if ogesi_id in menu:
+                # Normal durum: ürün hâlâ menüde
                 kalemler.append(SiparisKalemi(
                     menu_ogesi=menu[ogesi_id],
                     miktar=kalim["miktar"],
                     not_=kalim.get("not_", ""),
                 ))
             else:
-                # Menüden silinmiş ama geçmiş siparişte var; geçici nesne oluştur
+                # Ürün menüden silinmiş ama geçmiş siparişte var;
+                # geçici nesne oluşturarak siparişin bozulmasını önlüyoruz
                 gecici = MenuOgesi(
                     id=ogesi_id,
                     ad=kalim.get("menu_ogesi_ad", "Bilinmiyor"),
@@ -104,9 +123,10 @@ def siparisler_kaydet(siparisler: Dict[int, Siparis]):
         json.dump({str(k): v.to_dict() for k, v in siparisler.items()}, f, ensure_ascii=False, indent=2)
 
 
-# ---------- MALZEMELER ----------
+# ─── MALZEMELER ─────────────────────────────────────────────────────────────
 
 def malzeme_yukle() -> Dict[int, "Malzeme"]:
+    """Mutfak malzemelerini (stok) dosyadan yükler."""
     _dizin_olustur()
     if not os.path.exists(MALZEME_DOSYASI):
         return {}
@@ -121,7 +141,7 @@ def malzeme_kaydet(malzemeler: Dict[int, "Malzeme"]):
         json.dump({str(k): v.to_dict() for k, v in malzemeler.items()}, f, ensure_ascii=False, indent=2)
 
 
-# ---------- BAHŞİŞLER ----------
+# ─── BAHŞİŞLER ─────────────────────────────────────────────────────────────
 
 def bakhsis_listesi_yukle() -> list:
     _dizin_olustur()
@@ -131,6 +151,8 @@ def bakhsis_listesi_yukle() -> list:
         return json.load(f)
 
 
+# ─── REZERVASYONLAR ────────────────────────────────────────────────────────
+
 def rezervasyon_listesi_yukle() -> list:
     _dizin_olustur()
     if not os.path.exists(REZERVASYON_DOSYASI):
@@ -138,7 +160,7 @@ def rezervasyon_listesi_yukle() -> list:
     try:
         return json.loads(open(REZERVASYON_DOSYASI, encoding="utf-8").read())
     except Exception:
-        return []
+        return []  # Dosya bozuksa çökme, boş liste döndür
 
 
 def rezervasyon_kaydet(liste: list):
@@ -148,18 +170,20 @@ def rezervasyon_kaydet(liste: list):
 
 
 def rezervasyon_ekle(musteri: str, tarih: str, saat: str, kisi: int, masa_no: int, telefon: str = "", not_: str = "") -> dict:
+    """Yeni rezervasyon kaydı oluşturur ve listeye ekler."""
     liste = rezervasyon_listesi_yukle()
+    # Mevcut en büyük id'yi bulup 1 artırıyoruz — otomatik artan id
     yeni_id = max((r["id"] for r in liste), default=0) + 1
     kayit = {
-        "id": yeni_id,
-        "musteri": musteri,
-        "telefon": telefon,
-        "tarih": tarih,
-        "saat": saat,
-        "kisi": kisi,
-        "masa_no": masa_no,
-        "not_": not_,
-        "durum": "Onaylandı",
+        "id":        yeni_id,
+        "musteri":   musteri,
+        "telefon":   telefon,
+        "tarih":     tarih,
+        "saat":      saat,
+        "kisi":      kisi,
+        "masa_no":   masa_no,
+        "not_":      not_,
+        "durum":     "Onaylandı",
         "olusturma": __import__("datetime").datetime.now().isoformat(),
     }
     liste.append(kayit)
@@ -167,8 +191,11 @@ def rezervasyon_ekle(musteri: str, tarih: str, saat: str, kisi: int, masa_no: in
     return kayit
 
 
+# ─── MÜŞTERİ MASA BİLGİSİ ──────────────────────────────────────────────────
+
 def musteri_masa_kaydet(kullanici: str, masa_no: int, siparis_listesi: list):
-    """Müşterinin masa ve sipariş bilgisini kalıcı olarak sakla."""
+    """Müşterinin oturduğu masa ve sepetini dosyaya kaydeder.
+    Sayfa yenilenince veya bağlantı kopunca veri kaybolmasın diye."""
     _dizin_olustur()
     try:
         veri = json.loads(open(MUSTERI_MASA_DOSYASI, encoding="utf-8").read()) if os.path.exists(MUSTERI_MASA_DOSYASI) else {}
@@ -180,7 +207,7 @@ def musteri_masa_kaydet(kullanici: str, masa_no: int, siparis_listesi: list):
 
 
 def musteri_masa_yukle(kullanici: str):
-    """Müşterinin kayıtlı masa/sipariş bilgisini döndür. Yoksa None."""
+    """Müşterinin kayıtlı masa/sipariş bilgisini döndürür. Yoksa None."""
     if not os.path.exists(MUSTERI_MASA_DOSYASI):
         return None
     try:
@@ -191,12 +218,12 @@ def musteri_masa_yukle(kullanici: str):
 
 
 def musteri_masa_sil(kullanici: str):
-    """Müşterinin kayıtlı masa bilgisini temizle."""
+    """Ödeme sonrası müşterinin masa kaydını temizler."""
     if not os.path.exists(MUSTERI_MASA_DOSYASI):
         return
     try:
         veri = json.loads(open(MUSTERI_MASA_DOSYASI, encoding="utf-8").read())
-        veri.pop(kullanici, None)
+        veri.pop(kullanici, None)  # Yoksa hata vermeden geç
         with open(MUSTERI_MASA_DOSYASI, "w", encoding="utf-8") as f:
             json.dump(veri, f, ensure_ascii=False, indent=2)
     except Exception:
@@ -204,13 +231,14 @@ def musteri_masa_sil(kullanici: str):
 
 
 def bakhsis_ekle(tutar: float, musteri: str, not_: str = ""):
+    """Müşterinin bıraktığı bahşişi listeye ekler."""
     liste = bakhsis_listesi_yukle()
     from datetime import datetime
     liste.append({
-        "tutar": tutar,
+        "tutar":   tutar,
         "musteri": musteri,
-        "not_": not_,
-        "zaman": datetime.now().isoformat(),
+        "not_":    not_,
+        "zaman":   datetime.now().isoformat(),
     })
     _dizin_olustur()
     with open(BAKHSIS_DOSYASI, "w", encoding="utf-8") as f:
