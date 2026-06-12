@@ -3563,7 +3563,15 @@ def pers_menu_ekle():
             fiyat = float(request.form.get("fiyat","0").replace(",","."))
             aciklama = request.form.get("aciklama","").strip()
             kategori = KatEnum(kat)
-            my.oge_ekle(ad, kategori, fiyat, aciklama)
+            yeni = my.oge_ekle(ad, kategori, fiyat, aciklama)
+            # Fotoğraf yükleme
+            foto = request.files.get("foto")
+            if foto and foto.filename:
+                import os
+                ext = os.path.splitext(foto.filename)[1].lower() or ".jpg"
+                foto_klasor = os.path.join(os.path.dirname(__file__), "static", "menu")
+                os.makedirs(foto_klasor, exist_ok=True)
+                foto.save(os.path.join(foto_klasor, f"{yeni.id}{ext}"))
             return redirect(url_for("pers_menu", mesaj=f"'{ad}' eklendi.", tur="success"))
         except Exception as e:
             mesaj = f"Hata: {e}"
@@ -3572,7 +3580,7 @@ def pers_menu_ekle():
     html = f"""
     <div class="card">
       <h2>Yeni Ürün Ekle</h2>
-      <form method="post">
+      <form method="post" enctype="multipart/form-data">
         <div class="form-row"><label>Ürün Adı:</label>
           <input type="text" name="ad" required style="width:220px"></div>
         <div class="form-row"><label>Kategori:</label>
@@ -3581,6 +3589,9 @@ def pers_menu_ekle():
           <input type="number" name="fiyat" step="0.01" min="0" style="width:120px"></div>
         <div class="form-row"><label>Açıklama:</label>
           <input type="text" name="aciklama" style="width:280px"></div>
+        <div class="form-row"><label>Fotoğraf:</label>
+          <input type="file" name="foto" accept="image/*" style="width:280px">
+          <small style="color:#888;display:block;margin-top:4px">İsteğe bağlı — JPG, PNG, WEBP</small></div>
         <button class="btn btn-success" style="margin-top:8px">Ekle</button>
         <a href="/personel/menu" class="btn btn-secondary" style="margin-top:8px">İptal</a>
       </form>
